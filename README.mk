@@ -20,6 +20,36 @@ def afficher_grille() :
 
 -----------A
 -----------C
+# Vérifier si un joueur a gagné
+def verifier_victoire(symbole):
+
+    # Horizontal
+    for i in range(lignes):
+        for j in range(colonnes - 3):
+            if grille[i][j] == symbole and grille[i][j+1] == symbole and grille[i][j+2] == symbole and grille[i][j+3] == symbole:
+                return True
+
+    # Vertical
+    for i in range(lignes - 3):
+        for j in range(colonnes):
+            if grille[i][j] == symbole and grille[i+1][j] == symbole and grille[i+2][j] == symbole and grille[i+3][j] == symbole:
+                return True
+
+    # Diagonale descendante
+    for i in range(lignes - 3):
+        for j in range(colonnes - 3):
+            if grille[i][j] == symbole and grille[i+1][j+1] == symbole and grille[i+2][j+2] == symbole and grille[i+3][j+3] == symbole:
+                return True
+
+    # Diagonale montante
+    for i in range(3, lignes):
+        for j in range(colonnes - 3):
+            if grille[i][j] == symbole and grille[i-1][j+1] == symbole and grille[i-2][j+2] == symbole and grille[i-3][j+3] == symbole:
+                return True
+
+    return False
+
+
 
 
 
