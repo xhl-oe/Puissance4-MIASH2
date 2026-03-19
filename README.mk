@@ -19,7 +19,22 @@ def afficher_grille() :
   print("-" * (colonnes * 4)) 
 
 -----------A
------------C
+# Demander les noms des joueurs
+nom_joueur1 = input("Nom du joueur 1 (Rouge) : ")
+nom_joueur2 = input("Nom du joueur 2 (Jaune) : ")
+# Joueurs : symbole + nom
+joueurs = [("R", nom_joueur1), ("J", nom_joueur2)]
+tour = 0
+# Ajouter un jeton dans une colonne
+def ajouter_jeton(colonne, symbole):
+    i = lignes - 1
+    while i >= 0:
+        if grille[i][colonne] == " ":
+            grille[i][colonne] = symbole
+            return True
+        i -= 1
+    return False
+
 # Vérifier si un joueur a gagné
 def verifier_victoire(symbole):
 
