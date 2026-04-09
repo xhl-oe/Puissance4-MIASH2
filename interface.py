@@ -80,3 +80,4 @@ fenetre.config(menu=mon_menu) #pour afficher le menu dans la fenetre
 
 fenetre.mainloop() #boucle pour afficher la fenetre et la maintenir ouverte
 
+#test khery
