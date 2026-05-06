@@ -66,10 +66,9 @@ message.pack()
 score_label = tk.Label(fenetre,text="",font=("verdana", 12),bg="pink",fg="blue")
 score_label.pack()
 
-
-#khery
-#ECRIRE SOURCE 
-def ouvrir_parametres():#POUR ALLEZ PLUS LOIN n2: ouvrir une nouvelle fenêtre pour modifier les paramètres du jeu
+#KHERY:
+def ouvrir_parametres():#pour aller plus loin n2
+    """Ouvre une fenêtre permettant de modifier les paramètres du jeu."""
     fenetre_param = tk.Toplevel(fenetre)#Crée une nouvelle fenêtre secondaire (une pop-up) liée à la fenêtre principale
     fenetre_param.title("Paramètres")
     fenetre_param.geometry("300x300")#300 pixels sur 300 pixels.
@@ -85,8 +84,8 @@ def ouvrir_parametres():#POUR ALLEZ PLUS LOIN n2: ouvrir une nouvelle fenêtre p
     entree_alignement = tk.Entry(fenetre_param)
     entree_alignement.insert(0, str(alignement_gagnant))
     entree_alignement.pack()
-
-    def sauvegarder():#TOUJOURS POUR ALLEZ PLUS LOIN n2: sauvegarder les paramètres modifiés et mettre à jour la grille en conséquence
+#KHERY:
+    def sauvegarder():#TOUJOURS POUR ALLEZ PLUS LOIN n2
         global colonnes, lignes, alignement_gagnant
         global grille_logique
         #Récupère ce que l’utilisateur a écrit dans les champs et les convertit en nombres (int):
@@ -350,6 +349,7 @@ def choisir_mode(mode):
 #KHERY:
 #POUR ALLEZ PLUS LOIN n3:
 def jouer_ia():
+    """permet a l'ia de jouer """
     colonnes_valides=[]
     # Vérifie les colonnes qui ne sont pas pleines
     for col in range(colonnes):
@@ -417,8 +417,8 @@ def lancer_jeu():
     entree2.pack_forget()
     bouton.pack_forget()
     
-#khery
-bouton_annuler.pack()
+#KHERY:
+    bouton_annuler.pack()
 
     canvas.pack()
 
@@ -449,5 +449,4 @@ bouton_reset = tk.Button(fenetre,text="Recommencer",font=("verdana", 12),fg="Pal
 bouton_reset.pack()
 
 fenetre.mainloop()
-    
     
