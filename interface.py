@@ -67,7 +67,45 @@ score_label = tk.Label(fenetre,text="",font=("verdana", 12),bg="pink",fg="blue")
 score_label.pack()
 
 
-#PARTIE KHERY POUR ALLEZ PLUS LOIN 
+#ECRIRE SOURCE 
+def ouvrir_parametres():#POUR ALLEZ PLUS LOIN n2: ouvrir une nouvelle fenêtre pour modifier les paramètres du jeu
+    fenetre_param = tk.Toplevel(fenetre)#Crée une nouvelle fenêtre secondaire (une pop-up) liée à la fenêtre principale
+    fenetre_param.title("Paramètres")
+    fenetre_param.geometry("300x300")#300 pixels sur 300 pixels.
+    tk.Label(fenetre_param, text="Colonnes").pack()
+    entree_colonnes = tk.Entry(fenetre_param)
+    entree_colonnes.insert(0, str(colonnes))#Met la valeur actuelle de colonnes dans le champ dès le début.
+    entree_colonnes.pack()
+    tk.Label(fenetre_param, text="Lignes").pack()
+    entree_lignes = tk.Entry(fenetre_param)
+    entree_lignes.insert(0, str(lignes))
+    entree_lignes.pack()
+    tk.Label(fenetre_param, text="Jetons pour gagner").pack()
+    entree_alignement = tk.Entry(fenetre_param)
+    entree_alignement.insert(0, str(alignement_gagnant))
+    entree_alignement.pack()
+
+    def sauvegarder():#TOUJOURS POUR ALLEZ PLUS LOIN n2: sauvegarder les paramètres modifiés et mettre à jour la grille en conséquence
+        global colonnes, lignes, alignement_gagnant
+        global grille_logique
+        #Récupère ce que l’utilisateur a écrit dans les champs et les convertit en nombres (int):
+        colonnes = int(entree_colonnes.get())
+        lignes = int(entree_lignes.get())
+        alignement_gagnant = int(entree_alignement.get())
+
+        # recréer grille logique
+        grille_logique = []
+        for i in range(lignes):
+            ligne = []
+            for j in range(colonnes):
+                ligne.append(0)
+            grille_logique.append(ligne)
+        # changer taille canvas
+        canvas.config(width=colonnes * taille_case,height=lignes * taille_case)
+        creer_grille()
+        fenetre_param.destroy()#Ferme la fenêtre de paramètres après avoir sauvegardé les modifications.
+    bouton_valider = tk.Button(fenetre_param,text="Valider",command=sauvegarder)
+    bouton_valider.pack(pady=10)
 
 #AMINE
 # MENU
