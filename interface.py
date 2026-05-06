@@ -66,7 +66,7 @@ message.pack()
 score_label = tk.Label(fenetre,text="",font=("verdana", 12),bg="pink",fg="blue")
 score_label.pack()
 
-
+#khery
 #ECRIRE SOURCE 
 def ouvrir_parametres():#POUR ALLEZ PLUS LOIN n2: ouvrir une nouvelle fenêtre pour modifier les paramètres du jeu
     fenetre_param = tk.Toplevel(fenetre)#Crée une nouvelle fenêtre secondaire (une pop-up) liée à la fenêtre principale
@@ -153,7 +153,7 @@ def creer_grille():
             case = canvas.create_oval(x1,y1,x2,y2,fill="lightpink", outline="black")
             ligne_tab.append(case)
         grille_graphique.append(ligne_tab)
-
+#jehane
 def grille_pleine():
 
     for ligne in grille_logique:
@@ -161,7 +161,7 @@ def grille_pleine():
             return False
 
     return True
-
+#Amine
 # VERIFICATION VICTOIRE
 def verifier_victoire(joueur):
 
@@ -191,7 +191,7 @@ def verifier_victoire(joueur):
     return False
 
 
-#JEHANE
+#amine
 # RESET
 def reset():#Réinitialise la grille de jeu et les variables associées pour recommencer une nouvelle partie, tout en conservant les scores.
     global grille_logique, joueur_actuel
@@ -206,7 +206,7 @@ def reset():#Réinitialise la grille de jeu et les variables associées pour rec
     message.config(text=nom1 + " vs " + nom2)
     creer_grille()
     canvas.bind("<Button-1>", cliquer)
-
+#Amine
 #POUR ALLEZ PLUS LOIN n1:
 def reset_partie():#Réinitialise la partie entière, y compris les scores, pour recommencer une nouvelle partie à zéro.
     global score1, score2
@@ -215,7 +215,7 @@ def reset_partie():#Réinitialise la partie entière, y compris les scores, pour
     score_label.config(text=nom1 + " : 0 | " + nom2 + " : 0")
     reset()
 
-
+#Amine
 def nouvelle_manche():#Alterne le joueur qui commence la nouvelle manche et réinitialise la grille pour une nouvelle partie, tout en conservant les scores.
     global grille_logique, joueur_actuel, joueur_depart
     # vide grille logique
@@ -233,7 +233,84 @@ def nouvelle_manche():#Alterne le joueur qui commence la nouvelle manche et réi
     premier = nom1 if joueur_actuel == 1 else nom2
     message.config(text="Nouvelle manche : " + premier + " commence")
     canvas.bind("<Button-1>", cliquer)
+# PARTIEEE JEHANE A AJOUTER 
+#CHLOE DEF ANNULER COUP
+#choisir mode jehane
+#POUR ALLEZ PLUS LOIN n3:
+def jouer_ia():
+    colonnes_valides=[]
+    # Vérifie les colonnes qui ne sont pas pleines
+    for col in range(colonnes):
+        if grille_logique[0][col] == 0:
+            colonnes_valides.append(col)
+    # Si aucune colonne n'est valide, on ne fait rien
+    if not colonnes_valides:
+        return
+    # Choisit une colonne aléatoire parmi les colonnes valides
+    col_ia = random.choice(colonnes_valides)
+    #place le jeton de l'ia dans la colonne choisie
+    for ligne in range(lignes - 1, -1, -1):
+        if grille_logique[ligne][col_ia] == 0:
+            grille_logique[ligne][col_ia] = 2
+            historique.append((ligne, col_ia))
+            canvas.itemconfig(grille_graphique[ligne][col_ia],fill="lightgreen")
+            
+        #victoire ia 
+            global score2
+            if verifier_victoire(2):
+                score2 += 1
+                score_label.config(
+                    text=nom1 + " : " + str(score1)+ " | " + nom2 + " : " + str(score2))
+                message.config(text="L'IA gagne la manche !")
+                fenetre.after(3000, nouvelle_manche)
+                return
+
+            # match nul
+            if grille_pleine():
+                message.config(text="Match nul !")
+                return
+
+            # rendre la main au joueur
+            global joueur_actuel
+            joueur_actuel = 1
+
+            return
 
 
+chloe debut lancer jeu
+
+
+
+bouton_annuler.pack()
+
+    canvas.pack()
+
+    creer_grille()
+    
+    joueur_actuel = random.randint(1,2) # Choisit aléatoirement le joueur qui commence
+
+    historique.clear()
+    #POUR ALLEZ PLUS LOIN n1:
+    score1 = 0
+    score2 = 0
+    score_label.config(text=nom1 + " : 0 | " + nom2 + " : 0")
+    joueur_depart = random.randint(1,2)
+    joueur_actuel = joueur_depart
+    premier = nom1 if joueur_actuel == 1 else nom2
+
+    message.config(text=premier + " commence !")
+    canvas.bind("<Button-1>", cliquer)
+    if mode_jeu == "ia" and joueur_actuel == 2:
+        fenetre.after(500, jouer_ia)
+
+# BOUTON JOUER
+bouton = tk.Button(fenetre,text="Jouer",font=("verdana", 20, "italic"),fg="white",bg="PaleVioletRed",command=lancer_jeu)
+bouton.pack(pady=20)
+
+# BOUTON RESET
+bouton_reset = tk.Button(fenetre,text="Recommencer",font=("verdana", 12),fg="PaleVioletRed", bg="white",command=reset)
+bouton_reset.pack()
+
+fenetre.mainloop()
     
     
