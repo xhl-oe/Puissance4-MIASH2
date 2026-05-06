@@ -2,7 +2,7 @@
 import tkinter as tk
 import random
 fenetre = tk.Tk()
-fenetre.geometry("560x520")
+fenetre.geometry("560x520")#Largeur de la fenêtre = 560 pixels, Hauteur de la fenêtre = 520 pixels
 fenetre.title("Puissance 4")
 fenetre.config(bg="pink")
 
@@ -36,7 +36,7 @@ for i in range(lignes):
         ligne.append(0)
     grille_logique.append(ligne)
 
-#  affichage sur le menu de départ
+#  affichage sur l'interface du jeu au debut 
 label = tk.Label(fenetre,text="Puissance 4♥",font=("verdana", 24, "italic"),fg="PaleVioletRed",bg="pink")
 label.pack()
 
@@ -65,6 +65,7 @@ message.pack()
 #POUR ALLEZ PLUS LOIN n1:
 score_label = tk.Label(fenetre,text="",font=("verdana", 12),bg="pink",fg="blue")
 score_label.pack()
+
 
 #khery
 #ECRIRE SOURCE 
@@ -111,17 +112,17 @@ def ouvrir_parametres():#POUR ALLEZ PLUS LOIN n2: ouvrir une nouvelle fenêtre p
 # MENU
 mon_menu = tk.Menu(fenetre)
 
-jouer = tk.Menu(mon_menu, tearoff=0)
+jouer = tk.Menu(mon_menu, tearoff=0)#tearoff=0 empêche le menu de se détacher de la fenêtre principale
 jouer.add_command(label="jouer en 1v1",command=lambda: choisir_mode("1v1"))
 jouer.add_command(label="jouer contre l'ia",command=lambda: choisir_mode("ia"))
 
 Quitter = tk.Menu(mon_menu, tearoff=0)
-Quitter.add_command(label="Quitter le jeu", command=fenetre.quit)
+Quitter.add_command(label="Quitter le jeu", command=fenetre.quit)#Permet de fermer la fenêtre et de quitter le programme lorsque l'utilisateur sélectionne cette option dans le menu.
 
 Aide = tk.Menu(mon_menu, tearoff=0)
 Aide.add_command(label="Règles du jeu")
 Aide.add_command(label="Menu d'aide")
-Aide.add_command(label="Modifier les paramètres du jeu",command=ouvrir_parametres)
+Aide.add_command(label="Modifier les paramètres du jeu",command=ouvrir_parametres)#Permet d'ouvrir la fenêtre de paramètres lorsque l'utilisateur sélectionne cette option dans le menu d'aide.
 
 mon_menu.add_cascade(label="Jouer", menu=jouer)
 mon_menu.add_cascade(label="Aide", menu=Aide)
@@ -155,9 +156,11 @@ def creer_grille():
         grille_graphique.append(ligne_tab)
 
 
-CHLOE: 
-def grille_pleine()
- for ligne in grille_logique:
+#CHLOE:
+def grille_pleine():
+    """Vérifie si la grille est complètement remplie."""
+
+    for ligne in grille_logique:
         if 0 in ligne:
             return False
 
@@ -291,15 +294,16 @@ def cliquer(event):
                 message.config(text="Match nul !")
                 canvas.unbind("<Button-1>")
                 return
-#CHLOE:     # Changer joueur
+#CHLOE:
+            # Changer joueur
             joueur_actuel = 2 if joueur_actuel == 1 else 1
 
             # tour de l'IA
             if mode_jeu == "ia" and joueur_actuel == 2:
 
                 fenetre.after(500, jouer_ia)
-
             return
+
 
 
 # ANNULER COUP
@@ -370,9 +374,10 @@ def jouer_ia():
             return
 
 
+#CHLOE:
 # LANCER LE JEU
 def lancer_jeu():
-
+    '''Démarre le jeu en récupérant les pseudos des joueurs, en initialisant la grille et en choisissant aléatoirement le joueur qui commence.'''
     global nom1, nom2, joueur_actuel
     global score1, score2, joueur_depart#POUR ALLEZ PLUS LOIN n1:
     nom1 = entree1.get()
@@ -396,8 +401,7 @@ def lancer_jeu():
     label2.pack_forget()
     entree2.pack_forget()
     bouton.pack_forget()
-
-
+    
 #khery
 bouton_annuler.pack()
 
