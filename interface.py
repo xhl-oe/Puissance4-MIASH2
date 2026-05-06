@@ -66,12 +66,41 @@ message.pack()
 score_label = tk.Label(fenetre,text="",font=("verdana", 12),bg="pink",fg="blue")
 score_label.pack()
 
-#JEHANE
+
+
+
+#AMINE
 # Grille graphique
 grille_graphique = []
+# MENU
+mon_menu = tk.Menu(fenetre)
 
+jouer = tk.Menu(mon_menu, tearoff=0)
+jouer.add_command(label="jouer en 1v1",command=lambda: choisir_mode("1v1"))
+jouer.add_command(label="jouer contre l'ia",command=lambda: choisir_mode("ia"))
+
+Quitter = tk.Menu(mon_menu, tearoff=0)
+Quitter.add_command(label="Quitter le jeu", command=fenetre.quit)
+
+Aide = tk.Menu(mon_menu, tearoff=0)
+Aide.add_command(label="Règles du jeu")
+Aide.add_command(label="Menu d'aide")
+Aide.add_command(label="Modifier les paramètres du jeu",command=ouvrir_parametres)
+
+mon_menu.add_cascade(label="Jouer", menu=jouer)
+mon_menu.add_cascade(label="Aide", menu=Aide)
+mon_menu.add_cascade(label="Quitter", menu=Quitter)
+
+fenetre.config(menu=mon_menu)
+
+# creer bouton annuler le coup d'avant
+bouton_annuler = tk.Button(fenetre,text="Annuler coup",font=("verdana", 12),fg="white",bg="gray")
 canvas = tk.Canvas(fenetre,width=420, height=360, bg="white")#Largeur420 pixels.Hauteur du canvas = 360 pixels
+#JEHANE
+
 # CREATION DE LA GRILLE
+
+
 def creer_grille():
     global grille_graphique
     grille_graphique = []
@@ -122,4 +151,92 @@ def verifier_victoire(joueur):
             if all(grille_logique[l-i][c+i] == joueur for i in range(alignement_gagnant)):
                 return True
 
+
+    #AMINE
+# RESET
+def reset():#Réinitialise la grille de jeu et les variables associées pour recommencer une nouvelle partie, tout en conservant les scores.
+    global grille_logique, joueur_actuel
+    grille_logique = []
+    for i in range(lignes):
+        ligne = []
+        for j in range(colonnes):
+            ligne.append(0)
+        grille_logique.append(ligne)
+    historique.clear()
+    joueur_actuel = 1
+    message.config(text=nom1 + " vs " + nom2)
+    creer_grille()
+    canvas.bind("<Button-1>", cliquer)
+
+#POUR ALLEZ PLUS LOIN n1:
+def reset_partie():#Réinitialise la partie entière, y compris les scores, pour recommencer une nouvelle partie à zéro.
+    global score1, score2
+    score1 = 0
+    score2 = 0
+    score_label.config(text=nom1 + " : 0 | " + nom2 + " : 0")
+    reset()
+
+#AMINE
+def nouvelle_manche():#Alterne le joueur qui commence la nouvelle manche et réinitialise la grille pour une nouvelle partie, tout en conservant les scores.
+    global grille_logique, joueur_actuel, joueur_depart
+    # vide grille logique
+    grille_logique = []
+    for i in range(lignes):
+        ligne = []
+        for j in range(colonnes):
+            ligne.append(0)
+        grille_logique.append(ligne)
+    historique.clear()
+    creer_grille()
+    # alterne le joueur qui commence
+    joueur_depart = 2 if joueur_depart == 1 else 1
+    joueur_actuel = joueur_depart
+    premier = nom1 if joueur_actuel == 1 else nom2
+    message.config(text="Nouvelle manche : " + premier + " commence")
+    canvas.bind("<Button-1>", cliquer)
+
+
+    
     return False
+    # RESET
+def reset():#Réinitialise la grille de jeu et les variables associées pour recommencer une nouvelle partie, tout en conservant les scores.
+    global grille_logique, joueur_actuel
+    grille_logique = []
+    for i in range(lignes):
+        ligne = []
+        for j in range(colonnes):
+            ligne.append(0)
+        grille_logique.append(ligne)
+    historique.clear()
+    joueur_actuel = 1
+    message.config(text=nom1 + " vs " + nom2)
+    creer_grille()
+    canvas.bind("<Button-1>", cliquer)
+
+#POUR ALLEZ PLUS LOIN n1:
+def reset_partie():#Réinitialise la partie entière, y compris les scores, pour recommencer une nouvelle partie à zéro.
+    global score1, score2
+    score1 = 0
+    score2 = 0
+    score_label.config(text=nom1 + " : 0 | " + nom2 + " : 0")
+    reset()
+
+
+def nouvelle_manche():#Alterne le joueur qui commence la nouvelle manche et réinitialise la grille pour une nouvelle partie, tout en conservant les scores.
+    global grille_logique, joueur_actuel, joueur_depart
+    # vide grille logique
+    grille_logique = []
+    for i in range(lignes):
+        ligne = []
+        for j in range(colonnes):
+            ligne.append(0)
+        grille_logique.append(ligne)
+    historique.clear()
+    creer_grille()
+    # alterne le joueur qui commence
+    joueur_depart = 2 if joueur_depart == 1 else 1
+    joueur_actuel = joueur_depart
+    premier = nom1 if joueur_actuel == 1 else nom2
+    message.config(text="Nouvelle manche : " + premier + " commence")
+    canvas.bind("<Button-1>", cliquer)
+    
