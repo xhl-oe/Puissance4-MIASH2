@@ -133,13 +133,14 @@ fenetre.config(menu=mon_menu)
 # creer bouton annuler le coup d'avant
 bouton_annuler = tk.Button(fenetre,text="Annuler coup",font=("verdana", 12),fg="white",bg="gray")
 
-#JEHANE:
+#JEHANE
 # Grille graphique
 grille_graphique = []
 
 canvas = tk.Canvas(fenetre,width=420, height=360, bg="white")#Largeur420 pixels.Hauteur du canvas = 360 pixels
 # CREATION DE LA GRILLE
 def creer_grille():
+    """Crée et affiche la grille graphique du jeu sur le canvas."""
     global grille_graphique
     grille_graphique = []
     canvas.delete("all")
@@ -244,16 +245,16 @@ def nouvelle_manche():
 
 # Historique des coups
 historique = []
-
 #JEHANE:
 # CLIQUE SUR LE PLATEAU
 def cliquer(event):
+    """Gère le clic de l'utilisateur sur le plateau de jeu."""
     global joueur_actuel
     col = event.x // taille_case # Convertit la position x du clic en numéro de colonne (0 à 6)(cours en ligne d'Ordi Routier)
     if col < 0 or col >= colonnes:
         return# Si le clic est en dehors de la grille, on ignore le clic
 
-    for ligne in range(lignes - 1, -1, -1):
+    for ligne in range(lignes - 1, -1, -1):#on simule la gravité en partant du bas de la colonne vers le haut pour trouver la première case vide
         if grille_logique[ligne][col] == 0:
             grille_logique[ligne][col] = joueur_actuel
 
@@ -296,6 +297,7 @@ def cliquer(event):
                 message.config(text="Match nul !")
                 canvas.unbind("<Button-1>")
                 return
+
 #CHLOE:
             # Changer joueur
             joueur_actuel = 2 if joueur_actuel == 1 else 1
@@ -304,10 +306,9 @@ def cliquer(event):
             if mode_jeu == "ia" and joueur_actuel == 2:
 
                 fenetre.after(500, jouer_ia)
+
             return
-
-
-
+            
 # ANNULER COUP
 def annuler_coup():
 
@@ -331,10 +332,22 @@ def annuler_coup():
 
 
 bouton_annuler.config(command=annuler_coup)
+#JEHANE:
+#POUR ALLEZ PLUS LOIN n3
+def choisir_mode(mode):
+    """Choisit le mode de jeu et met à jour l'interface en conséquence."""
+    global mode_jeu
+    mode_jeu = mode
+    if mode == "ia":
+        entree2.config(state="normal")
+        entree2.delete(0, tk.END)
+        entree2.insert(0, "IA")
+        entree2.config(state="disabled")
+    else:
+        entree2.config(state="normal")
+        entree2.delete(0, tk.END)
 
-#POUR ALLEZ PLUS LOIN n3:
-
-#choisir mode jehane
+#KHERY:
 #POUR ALLEZ PLUS LOIN n3:
 def jouer_ia():
     colonnes_valides=[]
