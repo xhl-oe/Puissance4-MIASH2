@@ -169,6 +169,7 @@ def grille_pleine():
 #AMINE:
 # VERIFICATION VICTOIRE
 def verifier_victoire(joueur):
+    """Vérifie si le joueur a gagné."""
 
     # Horizontal
     for l in range(lignes):
@@ -194,11 +195,10 @@ def verifier_victoire(joueur):
                 return True
 
     return False
-
-
 #AMINE:
 # RESET
-def reset():#Réinitialise la grille de jeu et les variables associées pour recommencer une nouvelle partie, tout en conservant les scores.
+def reset():
+    """Réinitialise la partie tout en conservant les scores des joueurs."""
     global grille_logique, joueur_actuel
     grille_logique = []
     for i in range(lignes):
@@ -211,10 +211,11 @@ def reset():#Réinitialise la grille de jeu et les variables associées pour rec
     message.config(text=nom1 + " vs " + nom2)
     creer_grille()
     canvas.bind("<Button-1>", cliquer)
-    
+
 #AMINE:
 #POUR ALLEZ PLUS LOIN n1:
-def reset_partie():#Réinitialise la partie entière, y compris les scores, pour recommencer une nouvelle partie à zéro.
+def reset_partie():
+    """Réinitialise la partie entière, y compris les scores, pour recommencer une nouvelle partie à zéro."""
     global score1, score2
     score1 = 0
     score2 = 0
@@ -222,7 +223,8 @@ def reset_partie():#Réinitialise la partie entière, y compris les scores, pour
     reset()
 
 #AMINE:
-def nouvelle_manche():#Alterne le joueur qui commence la nouvelle manche et réinitialise la grille pour une nouvelle partie, tout en conservant les scores.
+def nouvelle_manche():
+    """Alterne le joueur qui commence la nouvelle manche et réinitialise la grille pour une nouvelle partie, tout en conservant les scores."""
     global grille_logique, joueur_actuel, joueur_depart
     # vide grille logique
     grille_logique = []
@@ -239,7 +241,7 @@ def nouvelle_manche():#Alterne le joueur qui commence la nouvelle manche et réi
     premier = nom1 if joueur_actuel == 1 else nom2
     message.config(text="Nouvelle manche : " + premier + " commence")
     canvas.bind("<Button-1>", cliquer)
-    
+
 # Historique des coups
 historique = []
 
