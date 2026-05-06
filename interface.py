@@ -107,7 +107,7 @@ def ouvrir_parametres():#POUR ALLEZ PLUS LOIN n2: ouvrir une nouvelle fenêtre p
     bouton_valider = tk.Button(fenetre_param,text="Valider",command=sauvegarder)
     bouton_valider.pack(pady=10)
 
-#AMINE
+#CHLOE:
 # MENU
 mon_menu = tk.Menu(fenetre)
 
@@ -132,7 +132,7 @@ fenetre.config(menu=mon_menu)
 # creer bouton annuler le coup d'avant
 bouton_annuler = tk.Button(fenetre,text="Annuler coup",font=("verdana", 12),fg="white",bg="gray")
 
-#JEHANE
+#JEHANE:
 # Grille graphique
 grille_graphique = []
 
@@ -153,7 +153,7 @@ def creer_grille():
             case = canvas.create_oval(x1,y1,x2,y2,fill="lightpink", outline="black")
             ligne_tab.append(case)
         grille_graphique.append(ligne_tab)
-#jehane
+RECOPIER COLLER VENANT DE CHLOE 
 def grille_pleine():
 
     for ligne in grille_logique:
@@ -161,7 +161,7 @@ def grille_pleine():
             return False
 
     return True
-#Amine
+#AMINE:
 # VERIFICATION VICTOIRE
 def verifier_victoire(joueur):
 
@@ -191,7 +191,7 @@ def verifier_victoire(joueur):
     return False
 
 
-#amine
+#AMINE:
 # RESET
 def reset():#Réinitialise la grille de jeu et les variables associées pour recommencer une nouvelle partie, tout en conservant les scores.
     global grille_logique, joueur_actuel
@@ -206,7 +206,7 @@ def reset():#Réinitialise la grille de jeu et les variables associées pour rec
     message.config(text=nom1 + " vs " + nom2)
     creer_grille()
     canvas.bind("<Button-1>", cliquer)
-#Amine
+#AMINE:
 #POUR ALLEZ PLUS LOIN n1:
 def reset_partie():#Réinitialise la partie entière, y compris les scores, pour recommencer une nouvelle partie à zéro.
     global score1, score2
@@ -215,7 +215,7 @@ def reset_partie():#Réinitialise la partie entière, y compris les scores, pour
     score_label.config(text=nom1 + " : 0 | " + nom2 + " : 0")
     reset()
 
-#Amine
+#AMINE:
 def nouvelle_manche():#Alterne le joueur qui commence la nouvelle manche et réinitialise la grille pour une nouvelle partie, tout en conservant les scores.
     global grille_logique, joueur_actuel, joueur_depart
     # vide grille logique
@@ -233,8 +233,75 @@ def nouvelle_manche():#Alterne le joueur qui commence la nouvelle manche et réi
     premier = nom1 if joueur_actuel == 1 else nom2
     message.config(text="Nouvelle manche : " + premier + " commence")
     canvas.bind("<Button-1>", cliquer)
-# PARTIEEE JEHANE A AJOUTER 
+    
+# Historique des coups
+historique = []
+#JEHANE:
+# CLIQUE SUR LE PLATEAU
+def cliquer(event):
+    global joueur_actuel
+    col = event.x // taille_case # Convertit la position x du clic en numéro de colonne (0 à 6)(cours en ligne d'Ordi Routier)
+    if col < 0 or col >= colonnes:
+        return# Si le clic est en dehors de la grille, on ignore le clic
+
+    for ligne in range(lignes - 1, -1, -1):
+        if grille_logique[ligne][col] == 0:
+            grille_logique[ligne][col] = joueur_actuel
+
+            historique.append((ligne, col))
+
+            couleur = "lightblue" if joueur_actuel == 1 else "lightgreen"
+
+            canvas.itemconfig(grille_graphique[ligne][col],fill=couleur)
+
+            # Vérifie victoire
+            if verifier_victoire(joueur_actuel):
+                #POUR ALLEZ PLUS LOIN n1:
+                global score1, score2
+                gagnant = nom1 if joueur_actuel == 1 else nom2
+                if joueur_actuel == 1:
+                    score1 += 1
+
+                else:
+                    score2 += 1
+                score_label.config(text=nom1 + " : " + str(score1) +" | " +nom2 + " : " + str(score2))
+                
+                #victoire finale
+                if score1 == manches_pour_gagner:
+                    message.config(text=nom1 + " remporte la partie !")
+                    fenetre.after(3000, reset_partie)#attendre 3000 millisecondes avant d'appeler la fonction reset_partie
+                    canvas.unbind("<Button-1>")
+                    return
+
+                if score2 == manches_pour_gagner:
+                    message.config(text=nom2 + " remporte la partie !")
+                    fenetre.after(3000, reset_partie)#attendre 3000 millisecondesavant d'appeler la fonction reset_partie
+                    canvas.unbind("<Button-1>")#ete désactive le clic sur le canvas pour éviter que les joueurs continuent à jouer après la fin de la partie
+                    return
+                message.config(text=gagnant + " gagne la manche !")
+                fenetre.after(3000, nouvelle_manche)
+                canvas.unbind("<Button-1>")
+                return
+            
+            if grille_pleine():
+                message.config(text="Match nul !")
+                canvas.unbind("<Button-1>")
+                return
+#CHLOE:     # Changer joueur
+            joueur_actuel = 2 if joueur_actuel == 1 else 1
+
+            # tour de l'IA
+            if mode_jeu == "ia" and joueur_actuel == 2:
+
+                fenetre.after(500, jouer_ia)
+
+            return
+
+
 #CHLOE DEF ANNULER COUP
+
+
+
 #choisir mode jehane
 #POUR ALLEZ PLUS LOIN n3:
 def jouer_ia():
