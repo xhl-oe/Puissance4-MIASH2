@@ -155,15 +155,14 @@ def creer_grille():
         grille_graphique.append(ligne_tab)
 
 
-RECOPIER COLLER VENANT DE CHLOE 
-
-
+CHLOE: 
 def grille_pleine()
  for ligne in grille_logique:
         if 0 in ligne:
             return False
 
     return True
+
 #AMINE:
 # VERIFICATION VICTOIRE
 def verifier_victoire(joueur):
@@ -209,6 +208,7 @@ def reset():#Réinitialise la grille de jeu et les variables associées pour rec
     message.config(text=nom1 + " vs " + nom2)
     creer_grille()
     canvas.bind("<Button-1>", cliquer)
+    
 #AMINE:
 #POUR ALLEZ PLUS LOIN n1:
 def reset_partie():#Réinitialise la partie entière, y compris les scores, pour recommencer une nouvelle partie à zéro.
@@ -239,6 +239,7 @@ def nouvelle_manche():#Alterne le joueur qui commence la nouvelle manche et réi
     
 # Historique des coups
 historique = []
+
 #JEHANE:
 # CLIQUE SUR LE PLATEAU
 def cliquer(event):
@@ -301,9 +302,31 @@ def cliquer(event):
             return
 
 
-#CHLOE DEF ANNULER COUP
+# ANNULER COUP
+def annuler_coup():
+
+    global joueur_actuel
+
+    if not historique:
+        message.config(text="Aucun coup à annuler")
+        return
+
+    ligne, col = historique.pop()
+
+    grille_logique[ligne][col] = 0
+
+    canvas.itemconfig(grille_graphique[ligne][col],fill="lightpink")
+
+    joueur_actuel = 2 if joueur_actuel == 1 else 1
+
+    message.config(text=nom1 + " vs " + nom2)
+
+    canvas.bind("<Button-1>", cliquer)
 
 
+bouton_annuler.config(command=annuler_coup)
+
+#POUR ALLEZ PLUS LOIN n3:
 
 #choisir mode jehane
 #POUR ALLEZ PLUS LOIN n3:
@@ -347,10 +370,35 @@ def jouer_ia():
             return
 
 
-chloe debut lancer jeu
+# LANCER LE JEU
+def lancer_jeu():
+
+    global nom1, nom2, joueur_actuel
+    global score1, score2, joueur_depart#POUR ALLEZ PLUS LOIN n1:
+    nom1 = entree1.get()
+    nom2 = entree2.get()
+    #POUR ALLEZ PLUS LOIN n3: choisir le mode de jeu en fonction du bouton cliqué
+    if mode_jeu == "ia":
+        nom2 = "IA"
+
+    if nom1 == "" or nom2 == "":
+        message.config(text="Veuillez entrer deux pseudos")
+        return
+    if nom1 == nom2 and mode_jeu == "1v1":
+        message.config(text="Pseudo déjà pris")
+        return
+    
+    # Cache menu de départ
+    label.pack_forget()
+    sub_label.pack_forget()
+    label1.pack_forget()
+    entree1.pack_forget()
+    label2.pack_forget()
+    entree2.pack_forget()
+    bouton.pack_forget()
 
 
-
+#khery
 bouton_annuler.pack()
 
     canvas.pack()
