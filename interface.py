@@ -153,10 +153,13 @@ def creer_grille():
             case = canvas.create_oval(x1,y1,x2,y2,fill="lightpink", outline="black")
             ligne_tab.append(case)
         grille_graphique.append(ligne_tab)
-RECOPIER COLLER VENANT DE CHLOE 
-def grille_pleine():
 
-    for ligne in grille_logique:
+
+RECOPIER COLLER VENANT DE CHLOE 
+
+
+def grille_pleine()
+ for ligne in grille_logique:
         if 0 in ligne:
             return False
 
