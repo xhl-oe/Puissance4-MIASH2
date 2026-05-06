@@ -1,3 +1,71 @@
+# chloe
+import tkinter as tk
+import random
+fenetre = tk.Tk()
+fenetre.geometry("560x520")
+fenetre.title("Puissance 4")
+fenetre.config(bg="pink")
+
+# Variables globales
+joueur_actuel = 1
+nom1 = ""
+nom2 = ""
+
+# Dimensions de la grille
+colonnes = 7
+lignes = 6
+taille_case = 60
+
+#POUR ALLEZ PLUS LOIN n1:
+score1 = 0
+score2 = 0
+manches_pour_gagner = 3
+joueur_depart = 1
+
+#POUR ALLEZ PLUS LOIN n2:
+alignement_gagnant = 4
+
+#POUR ALLEZ PLUS LOIN n3:
+mode_jeu = "1v1"
+
+# Grille logique
+grille_logique = []
+for i in range(lignes):
+    ligne = []
+    for j in range(colonnes):
+        ligne.append(0)
+    grille_logique.append(ligne)
+
+#  affichage sur le menu de départ
+label = tk.Label(fenetre,text="Puissance 4♥",font=("verdana", 24, "italic"),fg="PaleVioletRed",bg="pink")
+label.pack()
+
+sub_label = tk.Label(fenetre,text="by Khery,Jehane,Chloe,Amine",font=("verdana", 12, "italic"),fg="PaleVioletRed",bg="pink")
+sub_label.pack()
+
+# PSEUDOS
+nom_joueur1 = tk.StringVar()
+nom_joueur2 = tk.StringVar()
+
+label1 = tk.Label(fenetre,text="Entrez pseudo joueur 1",font=("verdana", 12),fg="PaleVioletRed",bg="pink")
+label1.pack()
+
+entree1 = tk.Entry(fenetre, textvariable=nom_joueur1,font=("verdana", 12), fg="black",bg="white")
+entree1.pack()
+
+label2 = tk.Label(fenetre,text="Entrez pseudo joueur 2",font=("verdana", 12),fg="PaleVioletRed",bg="pink")
+label2.pack()
+
+entree2 = tk.Entry(fenetre,textvariable=nom_joueur2,font=("verdana", 12),fg="black",bg="white")
+entree2.pack()
+
+message = tk.Label(fenetre,text="",font=("verdana", 12),bg="pink",fg="red")
+message.pack()
+
+#POUR ALLEZ PLUS LOIN n1:
+score_label = tk.Label(fenetre,text="",font=("verdana", 12),bg="pink",fg="blue")
+score_label.pack()
+
 #JEHANE
 # Grille graphique
 grille_graphique = []
