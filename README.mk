@@ -22,4 +22,11 @@ Noux avons créer un fonction afin que les joueurs puissent cliquer sur les case
 Nous avons mis en place une vérification afin de savoir si un joueur a gagne ou si lz grille s'est remplie sans qu'il y est de vainqueur.
 Nous avons créer un historique afin de permettre aux joueurs, s'ils le souhaitent, d'annuler leur coup tout en souvegardant la partie telle quelle.
 La dernière fonction permet de lancer le jeu.
-Nous avons fini notre programme ou rebasculant sur l'esthétique des boutons "jouer" et "recommencer", le basculement de la page d'acceuil à la page de jeu ainsi que l'affichage du score.
+Nous avons fini notre programme ou rebasculant sur l'esthétique des boutons "jouer" et "recommencer", le basculement de la page d'acceuil à la page de jeu ainsi que l'affichage du score
+source: 
+tkinter cours en ligne d'ordi routier disponible sur youtube, cours miashs uvsq ,
+coordoner canva: canva create oval tkinter python cours en ligne dispinible sur youtube indrajeet singh
+transformation de coordoner en colonne:site python tutorielle(tkinter)
+couleur:W3Schcool
+
+
